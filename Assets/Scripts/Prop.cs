@@ -6,6 +6,13 @@ public class Prop : MonoBehaviour
 {
     void Awake()
     {
-        Program.Instance.RegisterProp(this);
+        Program.Instance.Props.Add(this);
     }
+    
+    public void Die()
+    {
+        Program.Instance.Props.Remove(this);
+        Destroy(this.gameObject);
+    }
+
 }

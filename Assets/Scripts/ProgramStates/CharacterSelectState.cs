@@ -11,7 +11,7 @@ public static class CharacterSelectState
     public static bool CanEnter(object owner)
     {
         Program program = (Program)owner;
-        return program.Players.Count == 0;
+        return program.Humans.Count > 0;
     }
     public static void OnEnter(object owner)
     {
@@ -25,7 +25,13 @@ public static class CharacterSelectState
     public static void Update(float dt, object owner)
     {
         Program program = (Program)owner;
-        if(program.Machine.timeInState > 4.0f) {
+        Human human = program.Humans[0];
+        if(program.Machine.timeInState > 4.0f) 
+        {
+            Factory.Instance.SpawnPawnForController(new Vector3(0,0,0), human);
+        }
+        if(human.ControlledPawn != null)
+        {
             program.Machine.Advance();
         }
     }

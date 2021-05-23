@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,15 +25,11 @@ public class Boss : LazySingletonBehaviour<Boss>
         Machine.AdvanceMap[BossState.INACTIVE] = BossState.ACTIVE;
         Machine.WithdrawMap[BossState.ACTIVE] = BossState.INACTIVE;
     }
-    void Start()
+    public void Launch(string inParams)
     {
         Machine.Begin();
     }
 
-    public void RegisterAgent(Agent inAgent)
-    {
-        Agents.Add(inAgent);
-    }
 
     // Update is called once per frame
     void Update()

@@ -11,7 +11,7 @@ public static class SplashState
     public static bool CanEnter(object owner)
     {
         Program program = (Program)owner;
-        return program.Players.Count == 0;
+        return program.Humans.Count == 0;
     }
     public static void OnEnter(object owner)
     {
@@ -25,7 +25,12 @@ public static class SplashState
     {
         Program program = (Program)owner;
         
-        if(program.Machine.timeInState > 4.0f) {
+        if(program.Machine.timeInState > 4.0f)
+        {
+            Factory.Instance.SpawnHuman();
+        }
+        if(program.Humans.Count > 0)
+        {
             program.Machine.Advance();
         }
     }

@@ -12,20 +12,36 @@ public enum AgentState
 }
 
 
-public class Agent : MonoBehaviour
+public class Agent : Controller
 {
     public string Name = "Agent";
     public StateMachine<ProgramState> Machine = new StateMachine<ProgramState>();
 
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         Machine.Initialize(this);
+        Boss.Instance.Agents.Add(this);
+    }
 
-        Boss.Instance.RegisterAgent(this);
+    public override void Die()
+    {
+        Program.Instance.Controllers.Remove(this);
+        Boss.Instance.Agents.Remove(this);
+        Destroy(this.gameObject);
     }
 
     void Start()
     {
         Machine.Begin();
+    }
+
+    public override void Update()
+    {
+        base.Update();
+        if(ControlledPawn)
+        {
+            ControlledPawn.SetVelocity(new Vector3(-1,0,0));
+        }
     }
 }

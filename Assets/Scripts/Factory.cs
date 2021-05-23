@@ -8,8 +8,7 @@ public class Factory : LazySingletonBehaviour<Factory>
     public GameObject ProtoCapsule;
     public GameObject ProtoCone;
 
-    // Start is called before the first frame update
-    void Start()
+    public void Launch(string inParams)
     {
         
     }
@@ -20,10 +19,29 @@ public class Factory : LazySingletonBehaviour<Factory>
         return go;
     }
 
-    public Agent SpawnAgent(Vector3 pos)
+    public Human SpawnHuman()
+    {
+        int HumanNumber = Program.Instance.Humans.Count;
+        GameObject humanObject = new GameObject("Human"+HumanNumber);
+        Human human = humanObject.AddComponent<Human>();
+        return human;
+    }
+
+    
+    public Pawn SpawnPawnForController(Vector3 pos, Controller controller)
     {
         GameObject go = GameObject.Instantiate(ProtoCapsule, pos, Quaternion.identity);
-        Agent agent = go.AddComponent<Agent>();
+        Pawn pawn = go.AddComponent<Pawn>();
+        controller.Possess(pawn);
+        return pawn;
+    }
+
+    public Agent SpawnAgentWithPawn(Vector3 pos)
+    {
+        int AgentNumber = Boss.Instance.Agents.Count;
+        GameObject agentObject = new GameObject("Agent"+AgentNumber);
+        Agent agent = agentObject.AddComponent<Agent>();
+        SpawnPawnForController(pos, agent);
         return agent;
     }
 

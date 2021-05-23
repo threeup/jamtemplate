@@ -15,6 +15,7 @@ public static class GameOverState
     public static void OnEnter(object owner)
     {
         Debug.Log("Enter Game Over");
+        Program.Instance.PurgePawns();
     }
     public static void OnExit(object owner)
     {
@@ -24,6 +25,11 @@ public static class GameOverState
     {
         Program program = (Program)owner;
         if(program.Machine.timeInState > 4.0f) {
+            program.PurgeControllers();
+            program.PurgeProps();
+        }
+        if(program.Controllers.Count == 0 && program.Props.Count == 0)
+        {
             program.Machine.Advance();
         }
     }

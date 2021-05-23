@@ -11,11 +11,14 @@ public static class MainGameState
     public static bool CanEnter(object owner)
     {
         Program program = (Program)owner;
-        return program.Players.Count > 0;
+        return program.Controllers.Count > 0;
     }
     public static void OnEnter(object owner)
     {
         Debug.Log("Enter MainGame");
+        Factory.Instance.SpawnAgentWithPawn(new Vector3(5,5,5));
+        Factory.Instance.SpawnAgentWithPawn(new Vector3(8,5,5));
+        Factory.Instance.SpawnAgentWithPawn(new Vector3(2,5,5));
     }
     public static void OnExit(object owner)
     {        

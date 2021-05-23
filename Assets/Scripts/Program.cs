@@ -13,7 +13,9 @@ public enum ProgramState
 
 public class Program : LazySingletonBehaviour<Program>
 {
-    public List<int> Players = new List<int>();
+    public List<Pawn> Pawns = new List<Pawn>();
+    public List<Controller> Controllers = new List<Controller>();
+    public List<Human> Humans = new List<Human>();
     public StateMachine<ProgramState> Machine = new StateMachine<ProgramState>();
 
     public List<Prop> Props = new List<Prop>();
@@ -39,14 +41,33 @@ public class Program : LazySingletonBehaviour<Program>
         Machine.AdvanceMap[ProgramState.MAIN_GAME] = ProgramState.GAME_OVER;
         Machine.AdvanceMap[ProgramState.GAME_OVER] = ProgramState.SPLASH;
     }
-    void Start()
+    public void Launch(string inParams)
     {
         Machine.Begin();
     }
 
-    public void RegisterProp(Prop inProp)
+    public void PurgePawns()
     {
-        Props.Add(inProp);
+        for(int i = Pawns.Count-1; i>=0; --i)
+        {
+            Pawns[i].Die();
+        }
+    }
+    
+    public void PurgeControllers()
+    {
+        for(int i = Controllers.Count-1; i>=0; --i)
+        {
+            Controllers[i].Die();
+        }
+    }
+    
+    public void PurgeProps()
+    {
+        for(int i = Props.Count-1; i>=0; --i)
+        {
+            Props[i].Die();
+        }
     }
 
     // Update is called once per frame
