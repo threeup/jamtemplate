@@ -1,5 +1,5 @@
 using UnityEngine;
-public static class MainGameState
+public static class BossActiveState
 {
     public static void Bind(BasicState basicState)
     {
@@ -11,18 +11,20 @@ public static class MainGameState
     public static bool CanEnter(object owner)
     {
         Boss boss = (Boss)owner;
-        return boss.Players.Count == 0;
+        return boss.Agents.Count > 0;
     }
     public static void OnEnter(object owner)
     {
-        Debug.Log("Enter MainGame");
+        Debug.Log("Enter Inactive");
     }
     public static void OnExit(object owner)
-    {        
+    {
+        
     }
     public static void Update(float dt, object owner)
     {
         Boss boss = (Boss)owner;
+        
         if(boss.Machine.timeInState > 4.0f) {
             boss.Machine.Advance();
         }

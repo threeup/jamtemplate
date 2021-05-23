@@ -1,5 +1,5 @@
 using UnityEngine;
-public static class CharacterSelectState
+public static class SplashState
 {
     public static void Bind(BasicState basicState)
     {
@@ -10,23 +10,23 @@ public static class CharacterSelectState
     }
     public static bool CanEnter(object owner)
     {
-        Boss boss = (Boss)owner;
-        return boss.Players.Count == 0;
+        Program program = (Program)owner;
+        return program.Players.Count == 0;
     }
     public static void OnEnter(object owner)
     {
-        Debug.Log("Enter CharacterSelect");
+        Debug.Log("Enter SplashSelect");
     }
     public static void OnExit(object owner)
     {
         
-
     }
     public static void Update(float dt, object owner)
     {
-        Boss boss = (Boss)owner;
-        if(boss.Machine.timeInState > 4.0f) {
-            boss.Machine.Advance();
+        Program program = (Program)owner;
+        
+        if(program.Machine.timeInState > 4.0f) {
+            program.Machine.Advance();
         }
     }
 }

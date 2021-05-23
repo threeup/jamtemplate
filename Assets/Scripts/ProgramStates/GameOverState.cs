@@ -1,5 +1,5 @@
 using UnityEngine;
-public static class SplashState
+public static class GameOverState
 {
     public static void Bind(BasicState basicState)
     {
@@ -10,23 +10,21 @@ public static class SplashState
     }
     public static bool CanEnter(object owner)
     {
-        Boss boss = (Boss)owner;
-        return boss.Players.Count == 0;
+        return true;
     }
     public static void OnEnter(object owner)
     {
-        Debug.Log("Enter SplashSelect");
+        Debug.Log("Enter Game Over");
     }
     public static void OnExit(object owner)
     {
-        
+           
     }
     public static void Update(float dt, object owner)
     {
-        Boss boss = (Boss)owner;
-        
-        if(boss.Machine.timeInState > 4.0f) {
-            boss.Machine.Advance();
+        Program program = (Program)owner;
+        if(program.Machine.timeInState > 4.0f) {
+            program.Machine.Advance();
         }
     }
 }
